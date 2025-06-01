@@ -1,0 +1,39 @@
+- name: Delete all iptables rules
+  hosts: vpn-server
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Ensure /etc/iptables directory exists
+      ansible.builtin.file:
+        path: /etc/iptables
+        state: directory
+        mode: '0755'
+
+    - name: Flush all iptables rules
+      ansible.builtin.command: iptables -F
+
+    - name: Flush all iptables NAT rules
+      ansible.builtin.command: iptables -t nat -F
+
+    - name: Delete all user-defined chains
+      ansible.builtin.command: iptables -X
+
+    - name: Delete all user-defined NAT chains
+      ansible.builtin.command: iptables -t nat -X
+
+    - name: Reset all iptables counters
+      ansible.builtin.command: iptables -Z
+
+    - name: Save iptables rules to /etc/iptables/rules.v4
+      ansible.builtin.shell: iptables-save > /etc/iptables/rules.v4
+      become: yes
+
+    - name: Get iptables rules from the remote host
+      ansible.builtin.command: iptables-save
+      register: iptables_rules
+
+    - name: Save iptables rules to a file with timestamp on localhost
+      delegate_to: localhost
+      ansible.builtin.copy:
+        content: "{{ iptables_rules.stdout }}"
+        dest: "./../iptables_rules/vpnserver_iptables_rules_{{ ansible_date_time.iso8601 | replace(':', '-') }}.txt"

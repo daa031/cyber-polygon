@@ -1,0 +1,11 @@
+iptables -A FORWARD -s 10.10.10.0/24 -d 10.10.20.0/24 -j DROP
+iptables -A FORWARD -s 10.10.20.0/24 -d 10.10.10.0/24 -j DROP
+
+
+iptables -A FORWARD -s 10.10.20.0/24 -d 10.10.30.1 -j ACCEPT
+iptables -A FORWARD -s 10.10.20.0/24 -d 10.10.30.5 -j ACCEPT
+
+iptables -A FORWARD -s 10.10.20.0/24 -d 10.10.30.0/24 -j DROP
+
+
+iptables -t nat -A POSTROUTING -o ens33  -j MASQUERADE

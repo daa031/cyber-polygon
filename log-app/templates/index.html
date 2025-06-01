@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление перехватом трафика</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Управление перехватом трафика</h1>
+        <form id="mitmForm">
+            <div class="form-group">
+                <label for="target_url">Целевой URL:</label>
+                <input type="text" id="target_url" name="target_url" placeholder="https://10.10.30.5/" required>
+            </div>
+            <div class="form-group">
+                <label for="cert_file">SSL-сертификат:</label>
+                <input type="file" id="cert_file" name="cert_file">
+            </div>
+            <div class="form-group">
+                <label for="listen_port">Порт прослушивания:</label>
+                <input type="number" id="listen_port" name="listen_port" placeholder="8443" required>
+            </div>
+            <div class="form-group">
+                <label for="log_filename">Имя лог-файла:</label>
+                <input type="text" id="log_filename" name="log_filename" placeholder="mitmdump_flows" required>
+            </div>
+            <button type="submit">Запустить  перехват</button>
+        </form>
+        <div id="status"></div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>

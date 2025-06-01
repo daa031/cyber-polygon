@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логи запросов</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        #logOutput {
+            background: #1e1e1e;
+            color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            height: 70vh;
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Логи запросов: <span id="logTitle"></span></h1>
+        <pre id="logOutput">Загрузка логов...</pre>
+        <button id="stopBtn">Завершить и сохранить логи</button>
+    </div>
+    <script src="/static/script.js"></script>
+    <script>
+        const logFile = new URLSearchParams(window.location.search).get("log_file");
+        if (logFile) {
+            document.getElementById("logTitle").textContent = logFile;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+- hosts: vpn-server
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Ensure /etc/iptables directory exists
+      ansible.builtin.file:
+        path: /etc/iptables
+        state: directory
+        mode: '0755'
+
+    - name: Copy iptables rules file to the managed node
+      ansible.builtin.copy:
+        src: ./../new_rules/new_iptables_rules.txt
+        dest: /tmp/new_iptables_rules.txt
+        mode: '0644'
+
+    - name: Flush all existing iptables rules (filter table)
+      ansible.builtin.command: iptables -F
+
+    - name: Flush all existing NAT rules
+      ansible.builtin.command: iptables -t nat -F
+
+    - name: Delete all user-defined chains (filter table)
+      ansible.builtin.command: iptables -X
+
+    - name: Delete all user-defined NAT chains
+      ansible.builtin.command: iptables -t nat -X
+
+    - name: Reset iptables counters
+      ansible.builtin.command: iptables -Z
+
+    - name: Apply iptables rules from the file
+      ansible.builtin.shell: |
+        bash /tmp/new_iptables_rules.txt
+      args:
+        executable: /bin/bash
+
+    - name: Apply iptables rules from the file
+      ansible.builtin.shell: |
+        bash /tmp/new_iptables_rules.txt
+      args:
+        executable: /bin/bash
+
+    - name: Save iptables rules to /etc/iptables/rules.v4
+      ansible.builtin.shell: |
+        iptables-save > /etc/iptables/rules.v4
+
+    - name: Delete the rules file from the managed node
+      ansible.builtin.file:
+        path: /tmp/new_iptables_rules.txt
+        state: absent      
+
+    - name: Get iptables rules from the remote host
+      ansible.builtin.command: iptables-save
+      register: iptables_rules
+
+    - name: Save iptables rules to a file with timestamp (on localhost)
+      delegate_to: localhost
+      ansible.builtin.copy:
+        content: "{{ iptables_rules.stdout }}"
+        dest: "./../iptables_rules/vpnserver_iptables_rules_{{ ansible_date_time.iso8601 | replace(':', '-') }}.txt"

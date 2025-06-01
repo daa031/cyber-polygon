@@ -1,0 +1,21 @@
+- name: View /etc/shadow on vpnserver
+  hosts: vpn-server
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Get iptables rules from the remote host
+      ansible.builtin.command: iptables-save
+      register: iptables_rules
+
+    - name: Ensure local directory for iptables rules exists
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "./../iptables_rules"
+        state: directory
+        mode: '0755'
+
+    - name: Save iptables rules to a file with timestamp
+      delegate_to: localhost
+      ansible.builtin.copy:
+        content: "{{ iptables_rules.stdout }}"
+        dest: "./../iptables_rules/vpnserver_iptables_rules_{{ ansible_date_time.iso8601 | replace(':', '-') }}.txt"

